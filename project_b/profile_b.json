@@ -1,0 +1,176 @@
+{
+ "source": "REAL: NYC 311 Service Requests, created in calendar year 2023 (NYC Open Data erm2-nwe9)",
+ "rows": 219000,
+ "issues": [
+  {
+   "issue": "Duplicate unique_key",
+   "count": 0,
+   "pct": 0.0,
+   "example_unique_keys": [],
+   "note": "primary key must be unique"
+  },
+  {
+   "issue": "Exact duplicate rows (all columns)",
+   "count": 0,
+   "pct": 0.0,
+   "example_unique_keys": [],
+   "note": ""
+  },
+  {
+   "issue": "created_date outside calendar 2023 or unparsable",
+   "count": 0,
+   "pct": 0.0,
+   "example_unique_keys": [],
+   "note": ""
+  },
+  {
+   "issue": "closed_date earlier than created_date",
+   "count": 204,
+   "pct": 0.093,
+   "example_unique_keys": [
+    56454589,
+    56454607,
+    56477303
+   ],
+   "note": ""
+  },
+  {
+   "issue": "closed_date equals created_date (zero-length)",
+   "count": 2941,
+   "pct": 1.343,
+   "example_unique_keys": [
+    56412696,
+    56412810,
+    56413014
+   ],
+   "note": "may be legitimate auto-close; check by agency"
+  },
+  {
+   "issue": "status=Closed but closed_date null",
+   "count": 1210,
+   "pct": 0.553,
+   "example_unique_keys": [
+    57896350,
+    57944220,
+    57962855
+   ],
+   "note": ""
+  },
+  {
+   "issue": "closed_date present but status not Closed",
+   "count": 231,
+   "pct": 0.105,
+   "example_unique_keys": [
+    56435292,
+    56435352,
+    56454062
+   ],
+   "note": ""
+  },
+  {
+   "issue": "latitude/longitude missing",
+   "count": 2726,
+   "pct": 1.245,
+   "example_unique_keys": [
+    56408061,
+    56412433,
+    56412512
+   ],
+   "note": ""
+  },
+  {
+   "issue": "coordinates present but outside NYC bounding box",
+   "count": 0,
+   "pct": 0.0,
+   "example_unique_keys": [],
+   "note": ""
+  },
+  {
+   "issue": "incident_zip missing",
+   "count": 2381,
+   "pct": 1.087,
+   "example_unique_keys": [
+    56408061,
+    56412433,
+    56412512
+   ],
+   "note": ""
+  },
+  {
+   "issue": "incident_zip not 5 digits",
+   "count": 0,
+   "pct": 0.0,
+   "example_unique_keys": [],
+   "note": ""
+  },
+  {
+   "issue": "ZIP prefix implies different borough",
+   "count": 51,
+   "pct": 0.023,
+   "example_unique_keys": [
+    56453999,
+    56487199,
+    56540638
+   ],
+   "note": ""
+  },
+  {
+   "issue": "borough = 'UNSPECIFIED'/missing",
+   "count": 198,
+   "pct": 0.09,
+   "example_unique_keys": [
+    56419618,
+    56419743,
+    56419755
+   ],
+   "note": ""
+  },
+  {
+   "issue": "Phone/email pattern in free text",
+   "count": 5471,
+   "pct": 2.498,
+   "example_unique_keys": [
+    56412539,
+    56412602,
+    56412618
+   ],
+   "note": "possible PII leak"
+  },
+  {
+   "issue": "complaint_type: same value in different case/whitespace",
+   "count": 977,
+   "pct": 0.446,
+   "example_unique_keys": [
+    56412498,
+    56412539,
+    56412618
+   ],
+   "note": ""
+  },
+  {
+   "issue": "descriptor: same value in different case/whitespace",
+   "count": 143,
+   "pct": 0.065,
+   "example_unique_keys": [
+    56412496,
+    56419789,
+    56435239
+   ],
+   "note": ""
+  },
+  {
+   "issue": "agency: same value in different case/whitespace",
+   "count": 0,
+   "pct": 0.0,
+   "example_unique_keys": [],
+   "note": ""
+  },
+  {
+   "issue": "status: same value in different case/whitespace",
+   "count": 0,
+   "pct": 0.0,
+   "example_unique_keys": [],
+   "note": ""
+  }
+ ]
+}

@@ -1,0 +1,279 @@
+{
+ "fy": "2025-26",
+ "provenance": "STAND-IN compiled by Claude (not Gemini) from rule_text; regenerate with `python -m project_a.compile_rules` and diff",
+ "tables": {
+  "old_general": [
+   [
+    250000,
+    0
+   ],
+   [
+    500000,
+    5
+   ],
+   [
+    1000000,
+    20
+   ],
+   [
+    null,
+    30
+   ]
+  ],
+  "old_senior": [
+   [
+    300000,
+    0
+   ],
+   [
+    500000,
+    5
+   ],
+   [
+    1000000,
+    20
+   ],
+   [
+    null,
+    30
+   ]
+  ],
+  "old_super_senior": [
+   [
+    500000,
+    0
+   ],
+   [
+    1000000,
+    20
+   ],
+   [
+    null,
+    30
+   ]
+  ],
+  "new": [
+   [
+    400000,
+    0
+   ],
+   [
+    800000,
+    5
+   ],
+   [
+    1200000,
+    10
+   ],
+   [
+    1600000,
+    15
+   ],
+   [
+    2000000,
+    20
+   ],
+   [
+    2400000,
+    25
+   ],
+   [
+    null,
+    30
+   ]
+  ],
+  "sur_old": [
+   [
+    5000000,
+    10
+   ],
+   [
+    10000000,
+    15
+   ],
+   [
+    20000000,
+    25
+   ],
+   [
+    50000000,
+    37
+   ]
+  ],
+  "sur_new": [
+   [
+    5000000,
+    10
+   ],
+   [
+    10000000,
+    15
+   ],
+   [
+    20000000,
+    25
+   ]
+  ]
+ },
+ "regimes": {
+  "old": [
+   {
+    "id": "tab",
+    "clause": "Finance Act First Schedule Pt I (slab rates)",
+    "expr": "'old_general' if age < 60 else ('old_senior' if age < 80 else 'old_super_senior')"
+   },
+   {
+    "id": "std",
+    "clause": "Sec 16(ia)",
+    "expr": "min(50000, gross_salary)"
+   },
+   {
+    "id": "hra",
+    "clause": "Sec 10(13A); Rule 2A",
+    "expr": "max(0, min(hra_received, rent_paid - basic*0.1, basic*(0.5 if metro else 0.4))) if (rent_paid > 0 and hra_received > 0) else 0"
+   },
+   {
+    "id": "hp_loss",
+    "clause": "Sec 24(b)",
+    "expr": "min(home_loan_interest, 200000)"
+   },
+   {
+    "id": "gti",
+    "clause": "Sec 14",
+    "expr": "gross_salary - hra - std - hp_loss"
+   },
+   {
+    "id": "d80c",
+    "clause": "Sec 80C",
+    "expr": "min(inv_80c, 150000)"
+   },
+   {
+    "id": "d80ccd1b",
+    "clause": "Sec 80CCD(1B)",
+    "expr": "min(nps_80ccd1b, 50000)"
+   },
+   {
+    "id": "d80d_self",
+    "clause": "Sec 80D",
+    "expr": "min(health_self, 50000 if age >= 60 else 25000)"
+   },
+   {
+    "id": "d80d_par",
+    "clause": "Sec 80D",
+    "expr": "min(health_parents, 50000 if parents_senior else 25000)"
+   },
+   {
+    "id": "ded",
+    "clause": "Sec 80A(2) overall cap",
+    "expr": "min(d80c + d80ccd1b + d80d_self + d80d_par, max(gti, 0))"
+   },
+   {
+    "id": "ti",
+    "clause": "Sec 288A",
+    "expr": "round10(max(gti - ded, 0))"
+   },
+   {
+    "id": "slab",
+    "clause": "Finance Act First Schedule Pt I (slab rates)",
+    "expr": "slab_tax(tab, ti)"
+   },
+   {
+    "id": "rebate",
+    "clause": "Sec 87A",
+    "expr": "min(slab, 12500) if ti <= 500000 else 0"
+   },
+   {
+    "id": "t0",
+    "clause": "Sec 87A",
+    "expr": "slab - rebate"
+   },
+   {
+    "id": "sr",
+    "clause": "Finance Act First Schedule Pt I (surcharge)",
+    "expr": "sur_rate('sur_old', ti)"
+   },
+   {
+    "id": "T",
+    "clause": "Finance Act First Schedule Pt I (surcharge)",
+    "expr": "thresh('sur_old', ti)"
+   },
+   {
+    "id": "post_sur",
+    "clause": "Finance Act First Schedule Pt I (surcharge)",
+    "expr": "t0*(1+sr/100) if T == 0 else min(t0*(1+sr/100), slab_tax(tab, T)*(1+sur_rate('sur_old', T)/100) + ti - T)"
+   },
+   {
+    "id": "cess",
+    "clause": "Finance Act cess 4%",
+    "expr": "post_sur*0.04"
+   },
+   {
+    "id": "total",
+    "clause": "Sec 288B",
+    "expr": "round10(post_sur + cess)"
+   }
+  ],
+  "new": [
+   {
+    "id": "tab",
+    "clause": "Sec 115BAC(1A)",
+    "expr": "'new'"
+   },
+   {
+    "id": "std",
+    "clause": "Sec 16(ia)",
+    "expr": "min(75000, gross_salary)"
+   },
+   {
+    "id": "gti",
+    "clause": "Sec 14",
+    "expr": "gross_salary - std"
+   },
+   {
+    "id": "ti",
+    "clause": "Sec 288A",
+    "expr": "round10(max(gti, 0))"
+   },
+   {
+    "id": "slab",
+    "clause": "Sec 115BAC(1A)",
+    "expr": "slab_tax(tab, ti)"
+   },
+   {
+    "id": "rebate",
+    "clause": "Sec 87A",
+    "expr": "min(slab, 60000) if ti <= 1200000 else max(0, slab - (ti - 1200000))"
+   },
+   {
+    "id": "t0",
+    "clause": "Sec 87A",
+    "expr": "slab - rebate"
+   },
+   {
+    "id": "sr",
+    "clause": "Finance Act First Schedule Pt I (surcharge)",
+    "expr": "sur_rate('sur_new', ti)"
+   },
+   {
+    "id": "T",
+    "clause": "Finance Act First Schedule Pt I (surcharge)",
+    "expr": "thresh('sur_new', ti)"
+   },
+   {
+    "id": "post_sur",
+    "clause": "Finance Act First Schedule Pt I (surcharge)",
+    "expr": "t0*(1+sr/100) if T == 0 else min(t0*(1+sr/100), slab_tax(tab, T)*(1+sur_rate('sur_new', T)/100) + ti - T)"
+   },
+   {
+    "id": "cess",
+    "clause": "Finance Act cess 4%",
+    "expr": "post_sur*0.04"
+   },
+   {
+    "id": "total",
+    "clause": "Sec 288B",
+    "expr": "round10(post_sur + cess)"
+   }
+  ]
+ }
+}

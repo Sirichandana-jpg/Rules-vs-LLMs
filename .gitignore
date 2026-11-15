@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+
+# API keys and secrets
+.env
+.env.*
+!.env.example
+
+# IDE
+.vscode/
+.idea/
+
+# Logs and cache
+*.log
+.pytest_cache/
+.cache/
+
+# Large datasets
+data/raw_2023.csv
+*.parquet
+
+# OS files
+.DS_Store
+Thumbs.db

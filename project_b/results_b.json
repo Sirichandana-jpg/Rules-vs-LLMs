@@ -1,0 +1,426 @@
+{
+ "source": "REAL: NYC 311 Service Requests, created in calendar year 2023 (NYC Open Data erm2-nwe9)",
+ "batch_rows": 5000,
+ "inject_rate": 0.05,
+ "n_clean": 30,
+ "n_corrupt_per_type": 20,
+ "cpu_usd_per_hr_assumed": 0.04,
+ "table": {
+  "schema": {
+   "rules": {
+    "detect_pct": 100.0,
+    "false_alarm_pct": 0.0,
+    "row_recall_pct": null,
+    "row_fpr_pct": null,
+    "rows_per_s": 83808247,
+    "cpu_usd_per_M_rows": 0.0,
+    "explain_0_2": 2,
+    "alert_threshold_rows": 2
+   },
+   "stats": {
+    "detect_pct": 100.0,
+    "false_alarm_pct": 0.0,
+    "row_recall_pct": null,
+    "row_fpr_pct": null,
+    "rows_per_s": 152587890,
+    "cpu_usd_per_M_rows": 0.0,
+    "explain_0_2": 1,
+    "alert_threshold_rows": 2
+   },
+   "llm": {
+    "status": "NOT RUN (no GEMINI_API_KEY)",
+    "tokens_per_batch_projected": 3095,
+    "tokens_per_M_rows_batch_sampling": 619067
+   }
+  },
+  "dtype": {
+   "rules": {
+    "detect_pct": 100.0,
+    "false_alarm_pct": 0.0,
+    "row_recall_pct": null,
+    "row_fpr_pct": null,
+    "rows_per_s": 17138901,
+    "cpu_usd_per_M_rows": 0.0,
+    "explain_0_2": 2,
+    "alert_threshold_rows": 2
+   },
+   "stats": {
+    "detect_pct": 100.0,
+    "false_alarm_pct": 0.0,
+    "row_recall_pct": null,
+    "row_fpr_pct": null,
+    "rows_per_s": 890804,
+    "cpu_usd_per_M_rows": 0.0,
+    "explain_0_2": 1,
+    "alert_threshold_rows": 2
+   },
+   "llm": {
+    "status": "NOT RUN (no GEMINI_API_KEY)",
+    "tokens_per_batch_projected": 3368,
+    "tokens_per_M_rows_batch_sampling": 673533
+   }
+  },
+  "datefmt": {
+   "rules": {
+    "detect_pct": 100.0,
+    "false_alarm_pct": 0.0,
+    "row_recall_pct": 100.0,
+    "row_fpr_pct": 0.0,
+    "rows_per_s": 140726,
+    "cpu_usd_per_M_rows": 0.0001,
+    "explain_0_2": 2,
+    "alert_threshold_rows": 2
+   },
+   "stats": {
+    "detect_pct": 100.0,
+    "false_alarm_pct": 0.0,
+    "row_recall_pct": 100.0,
+    "row_fpr_pct": 0.0,
+    "rows_per_s": 55754,
+    "cpu_usd_per_M_rows": 0.0002,
+    "explain_0_2": 2,
+    "alert_threshold_rows": 2
+   },
+   "llm": {
+    "status": "NOT RUN (no GEMINI_API_KEY)",
+    "tokens_per_batch_projected": 3211,
+    "tokens_per_M_rows_batch_sampling": 642267
+   }
+  },
+  "latlon": {
+   "rules": {
+    "detect_pct": 100.0,
+    "false_alarm_pct": 0.0,
+    "row_recall_pct": 100.0,
+    "row_fpr_pct": 0.0,
+    "rows_per_s": 5214710,
+    "cpu_usd_per_M_rows": 0.0,
+    "explain_0_2": 2,
+    "alert_threshold_rows": 2
+   },
+   "stats": {
+    "detect_pct": 100.0,
+    "false_alarm_pct": 0.0,
+    "row_recall_pct": 100.0,
+    "row_fpr_pct": 0.0,
+    "rows_per_s": 5804612,
+    "cpu_usd_per_M_rows": 0.0,
+    "explain_0_2": 2,
+    "alert_threshold_rows": 2
+   },
+   "llm": {
+    "status": "NOT RUN (no GEMINI_API_KEY)",
+    "tokens_per_batch_projected": 14638,
+    "tokens_per_M_rows_batch_sampling": 2927667
+   }
+  },
+  "dup": {
+   "rules": {
+    "detect_pct": 100.0,
+    "false_alarm_pct": 0.0,
+    "row_recall_pct": 100.0,
+    "row_fpr_pct": 0.0,
+    "rows_per_s": 458624,
+    "cpu_usd_per_M_rows": 0.0,
+    "explain_0_2": 2,
+    "alert_threshold_rows": 2
+   },
+   "stats": {
+    "detect_pct": 100.0,
+    "false_alarm_pct": 0.0,
+    "row_recall_pct": 100.0,
+    "row_fpr_pct": 0.0,
+    "rows_per_s": 37349,
+    "cpu_usd_per_M_rows": 0.0003,
+    "explain_0_2": 2,
+    "alert_threshold_rows": 2
+   },
+   "llm": {
+    "status": "NOT RUN (no GEMINI_API_KEY)",
+    "tokens_per_batch_projected": 14885,
+    "tokens_per_M_rows_batch_sampling": 2977067
+   }
+  },
+  "neardup": {
+   "rules": {
+    "detect_pct": 100.0,
+    "false_alarm_pct": 0.0,
+    "row_recall_pct": 100.0,
+    "row_fpr_pct": 0.031,
+    "rows_per_s": 32490,
+    "cpu_usd_per_M_rows": 0.0003,
+    "explain_0_2": 2,
+    "alert_threshold_rows": 9
+   },
+   "stats": {
+    "detect_pct": 100.0,
+    "false_alarm_pct": 0.0,
+    "row_recall_pct": 98.8,
+    "row_fpr_pct": 0.238,
+    "rows_per_s": 28801,
+    "cpu_usd_per_M_rows": 0.0004,
+    "explain_0_2": 2,
+    "alert_threshold_rows": 22
+   },
+   "llm": {
+    "status": "NOT RUN (no GEMINI_API_KEY)",
+    "tokens_per_batch_projected": 14837,
+    "tokens_per_M_rows_batch_sampling": 2967400
+   }
+  },
+  "nullspike": {
+   "rules": {
+    "detect_pct": 35.0,
+    "false_alarm_pct": 0.0,
+    "row_recall_pct": 35.0,
+    "row_fpr_pct": 0.0,
+    "rows_per_s": 1033293,
+    "cpu_usd_per_M_rows": 0.0,
+    "explain_0_2": 2,
+    "alert_threshold_rows": 2
+   },
+   "stats": {
+    "detect_pct": 100.0,
+    "false_alarm_pct": 0.0,
+    "row_recall_pct": 100.0,
+    "row_fpr_pct": 0.0,
+    "rows_per_s": 100199,
+    "cpu_usd_per_M_rows": 0.0001,
+    "explain_0_2": 2,
+    "alert_threshold_rows": 2
+   },
+   "llm": {
+    "status": "NOT RUN (no GEMINI_API_KEY)",
+    "tokens_per_batch_projected": 14581,
+    "tokens_per_M_rows_batch_sampling": 2916200
+   }
+  },
+  "closed_before": {
+   "rules": {
+    "detect_pct": 100.0,
+    "false_alarm_pct": 0.0,
+    "row_recall_pct": 100.0,
+    "row_fpr_pct": 0.078,
+    "rows_per_s": 39160,
+    "cpu_usd_per_M_rows": 0.0003,
+    "explain_0_2": 2,
+    "alert_threshold_rows": 12
+   },
+   "stats": {
+    "detect_pct": 100.0,
+    "false_alarm_pct": 0.0,
+    "row_recall_pct": 100.0,
+    "row_fpr_pct": 0.343,
+    "rows_per_s": 27330,
+    "cpu_usd_per_M_rows": 0.0004,
+    "explain_0_2": 2,
+    "alert_threshold_rows": 28
+   },
+   "llm": {
+    "status": "NOT RUN (no GEMINI_API_KEY)",
+    "tokens_per_batch_projected": 14450,
+    "tokens_per_M_rows_batch_sampling": 2890000
+   }
+  },
+  "zipboro": {
+   "rules": {
+    "detect_pct": 100.0,
+    "false_alarm_pct": 0.0,
+    "row_recall_pct": 100.0,
+    "row_fpr_pct": 0.025,
+    "rows_per_s": 278524,
+    "cpu_usd_per_M_rows": 0.0,
+    "explain_0_2": 2,
+    "alert_threshold_rows": 10
+   },
+   "stats": {
+    "detect_pct": 100.0,
+    "false_alarm_pct": 0.0,
+    "row_recall_pct": 100.0,
+    "row_fpr_pct": 0.033,
+    "rows_per_s": 397684,
+    "cpu_usd_per_M_rows": 0.0,
+    "explain_0_2": 2,
+    "alert_threshold_rows": 11
+   },
+   "llm": {
+    "status": "NOT RUN (no GEMINI_API_KEY)",
+    "tokens_per_batch_projected": 14842,
+    "tokens_per_M_rows_batch_sampling": 2968400
+   }
+  },
+  "pair": {
+   "rules": {
+    "detect_pct": 100.0,
+    "false_alarm_pct": 0.0,
+    "row_recall_pct": 98.7,
+    "row_fpr_pct": 1.376,
+    "rows_per_s": 211339,
+    "cpu_usd_per_M_rows": 0.0001,
+    "explain_0_2": 2,
+    "alert_threshold_rows": 114
+   },
+   "stats": {
+    "detect_pct": 100.0,
+    "false_alarm_pct": 0.0,
+    "row_recall_pct": 98.6,
+    "row_fpr_pct": 0.195,
+    "rows_per_s": 182791,
+    "cpu_usd_per_M_rows": 0.0001,
+    "explain_0_2": 2,
+    "alert_threshold_rows": 30
+   },
+   "llm": {
+    "status": "NOT RUN (no GEMINI_API_KEY)",
+    "tokens_per_batch_projected": 14693,
+    "tokens_per_M_rows_batch_sampling": 2938600
+   }
+  },
+  "resolution": {
+   "rules": {
+    "detect_pct": 100.0,
+    "false_alarm_pct": 0.0,
+    "row_recall_pct": 78.5,
+    "row_fpr_pct": 2.209,
+    "rows_per_s": 81876,
+    "cpu_usd_per_M_rows": 0.0001,
+    "explain_0_2": 2,
+    "alert_threshold_rows": 155
+   },
+   "stats": {
+    "detect_pct": 100.0,
+    "false_alarm_pct": 0.0,
+    "row_recall_pct": 48.6,
+    "row_fpr_pct": 0.084,
+    "rows_per_s": 62688,
+    "cpu_usd_per_M_rows": 0.0002,
+    "explain_0_2": 2,
+    "alert_threshold_rows": 14
+   },
+   "llm": {
+    "status": "NOT RUN (no GEMINI_API_KEY)",
+    "tokens_per_batch_projected": 14607,
+    "tokens_per_M_rows_batch_sampling": 2921400
+   }
+  },
+  "pii": {
+   "rules": {
+    "detect_pct": 100.0,
+    "false_alarm_pct": 0.0,
+    "row_recall_pct": 75.1,
+    "row_fpr_pct": 2.46,
+    "rows_per_s": 12233,
+    "cpu_usd_per_M_rows": 0.0009,
+    "explain_0_2": 2,
+    "alert_threshold_rows": 174
+   },
+   "stats": {
+    "detect_pct": 0.0,
+    "false_alarm_pct": 0.0,
+    "row_recall_pct": 100.0,
+    "row_fpr_pct": 89.777,
+    "rows_per_s": 15444,
+    "cpu_usd_per_M_rows": 0.0007,
+    "explain_0_2": 1,
+    "alert_threshold_rows": 4563
+   },
+   "llm": {
+    "status": "NOT RUN (no GEMINI_API_KEY)",
+    "tokens_per_batch_projected": 14619,
+    "tokens_per_M_rows_batch_sampling": 2923867
+   }
+  }
+ },
+ "thr": {
+  "rules/schema": 2,
+  "stats/schema": 2,
+  "rules/dtype": 2,
+  "stats/dtype": 2,
+  "rules/datefmt": 2,
+  "stats/datefmt": 2,
+  "rules/latlon": 2,
+  "stats/latlon": 2,
+  "rules/dup": 2,
+  "stats/dup": 2,
+  "rules/neardup": 9,
+  "stats/neardup": 22,
+  "rules/nullspike": 2,
+  "stats/nullspike": 2,
+  "rules/closed_before": 12,
+  "stats/closed_before": 28,
+  "rules/zipboro": 10,
+  "stats/zipboro": 11,
+  "rules/pair": 114,
+  "stats/pair": 30,
+  "rules/resolution": 155,
+  "stats/resolution": 14,
+  "rules/pii": 174,
+  "stats/pii": 4563
+ },
+ "llm_full_per_row_tokens_per_M_rows_per_check": 138559000,
+ "llm_row_tokens": 139,
+ "hybrid_choice": {
+  "schema": "rules",
+  "dtype": "rules",
+  "datefmt": "rules",
+  "latlon": "rules",
+  "dup": "rules",
+  "neardup": "rules",
+  "nullspike": "stats",
+  "closed_before": "rules",
+  "zipboro": "rules",
+  "pair": "rules",
+  "resolution": "rules",
+  "pii": "rules"
+ },
+ "hybrid": {
+  "per_type_detect_pct": {
+   "schema": 100.0,
+   "dtype": 100.0,
+   "datefmt": 100.0,
+   "latlon": 100.0,
+   "dup": 100.0,
+   "neardup": 100.0,
+   "nullspike": 100.0,
+   "closed_before": 100.0,
+   "zipboro": 100.0,
+   "pair": 100.0,
+   "resolution": 100.0,
+   "pii": 100.0
+  },
+  "per_type_detect_n": {
+   "schema": 10,
+   "dtype": 10,
+   "datefmt": 9,
+   "latlon": 8,
+   "dup": 14,
+   "neardup": 8,
+   "nullspike": 10,
+   "closed_before": 2,
+   "zipboro": 13,
+   "pair": 7,
+   "resolution": 6,
+   "pii": 6
+  },
+  "per_type_false_alarm_pct_on_clean": {
+   "schema": 0.0,
+   "dtype": 0.0,
+   "datefmt": 0.0,
+   "latlon": 0.0,
+   "dup": 0.0,
+   "neardup": 0.0,
+   "nullspike": 0.0,
+   "closed_before": 0.0,
+   "zipboro": 0.0,
+   "pair": 0.0,
+   "resolution": 0.0,
+   "pii": 0.0
+  },
+  "any_alert_on_clean_batch_pct": 0.0,
+  "rows_per_s": 6189,
+  "cpu_usd_per_M_rows": 0.0018,
+  "llm_confirm_tokens_per_M_rows_projected": 529160,
+  "n_mixed_batches": 60,
+  "note": "mixed batches have 1-3 simultaneous row-level corruptions; schema/dtype batches tested alone. LLM stage NOT RUN: tokens are what it would receive."
+ }
+}
