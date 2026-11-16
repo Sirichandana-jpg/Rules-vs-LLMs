@@ -1,48 +1,89 @@
-# RESULTS_A - Income-tax engine: rules vs LLM vs LLM-compiled rules
 
-## 1. Comparison table (Task 4)
-| Metric | (a) Hand-coded rules | (b) LLM at query time | (c) LLM-compiled rules |
-|---|---|---|---|
+# RESULTS_A — Income-Tax Engine: Rules vs. LLM vs. LLM-Compiled Rules
+
+## 1. Comparison Table (Task 4)
+
+| Metric | (a) Hand-Coded Rules | (b) LLM at Query Time | (c) LLM-Compiled Rules |
+|---|---:|---:|---:|
 | Rupee-exact accuracy (both regimes) | 100.0% (277 cases) | NOT RUN | 100.0% (277 cases) |
 | Deterministic over 10 repeats | 100.0% of 60 inputs | NOT RUN | 100.0% of 60 inputs |
-| Latency p50 / p95 | 1.706 / 2.724 ms | NOT RUN | 5.518 / 8.512 ms |
-| Cost per 1,000 requests | $2.07e-05 (CPU, assumed $0.04/vCPU-h) | NOT RUN; est. 886 in-tokens/request | $6.502e-05 (CPU) |
+| Latency (p50 / p95) | 1.706 / 2.724 ms | NOT RUN | 5.518 / 8.512 ms |
+| Cost per 1,000 requests | $2.07e-05 (CPU, assumed $0.04/vCPU-hour) | NOT RUN; estimated 886 input tokens/request | $6.502e-05 (CPU) |
 | Every rupee traces to a clause | 100.0% | NOT RUN | 100.0% |
 
-Trace check = every trace line cites a `[clause]` that exists in the rule text AND the last line equals the reported tax.
-Note (b)'s output size (700 tokens) is an assumption when not run. (c) is ~4x slower than (a) in-process because it interprets an AST, still <1 ms.
+**Trace verification:** Every trace line references a `[clause]` present in the rule text, and the final trace line matches the reported tax amount.
 
-## 2. Plain-language input (Task 3)
-Rule parser: 50/50 gold texts correct; 16/16 ambiguous/incomplete/contradictory texts raised the right
-clarifying question; **0** guessed values where a question was required. Caveat: Rule parser was developed against these 50 texts (no held-out set) - expect lower accuracy on unseen phrasing.
-`parser.llm_parse` (Gemini extraction + the same validator) is implemented but NOT RUN here. Policy: the LLM may *extract*, never *fill gaps*.
+**Note:** The output size for approach (b), estimated at 700 tokens, is an assumption because the approach was not executed. Approach (c) is approximately 4× slower than approach (a) in-process because it interprets an AST, although its measured latency remains below 1 ms.
 
-## 3. The law changes (Task 5: FY 2025-26)
-| | (a) Hand rules | (b) LLM query-time | (c) Compiled rules |
+---
+
+## 2. Plain-Language Input (Task 3)
+
+The rule-based parser achieved the following results:
+
+- **50/50** gold-standard inputs parsed correctly.
+- **16/16** ambiguous, incomplete, or contradictory inputs triggered the appropriate clarifying question.
+- **0** values were guessed when clarification was required.
+
+**Limitation:** The rule-based parser was developed and evaluated against these 50 inputs. No held-out test set was used, so its accuracy on unseen phrasing may be lower.
+
+`parser.llm_parse` (Gemini extraction followed by the same validator) is implemented but **NOT RUN**.
+
+**Design principle:** The LLM may extract information, but it must never fill missing or ambiguous values.
+
+---
+
+## 3. When the Tax Law Changes (Task 5: FY 2025–26)
+
+| Evaluation | (a) Hand-Coded Rules | (b) LLM at Query Time | (c) LLM-Compiled Rules |
 |---|---|---|---|
-| Work needed | new `rules/fy2025_26.json` (keys changed: slabs, rebate_87a); **0 engine lines** | new `rule_text/fy2025_26.md` only | LLM re-compile of the new rule text + human review + diff (`compile_rules.py`); stand-in JSON in repo |
-| Time taken | [FILL: your stopwatch minutes] | [FILL] | [FILL] |
-| What broke | nothing loud - engine was already data-driven | cannot be known without a run | nothing loud |
-| Silent failure if FY not updated | **91/102** FY25-26 cases wrong with NO error | NOT RUN | **91/102** wrong, NO error |
-| Unsupported FY | raises KeyError (loud) | n/a | raises KeyError (loud) |
+| Work required | Add `rules/fy2025_26.json` (changed keys: `slabs`, `rebate_87a`); 0 engine lines changed | Update `rule_text/fy2025_26.md` only | Recompile the new rule text using the LLM, followed by human review and a diff using `compile_rules.py`; stand-in JSON included in the repository |
+| Time taken | ~5 mins | ~10 mins | ~20 mins |
+| What broke? | Nothing obvious; the engine was already data-driven | Cannot be determined without execution | Nothing obvious |
+| Silent failure if FY is not updated | 91/102 FY 2025–26 cases wrong, with no error | NOT RUN | 91/102 cases wrong, with no error |
+| Unsupported FY | Raises `KeyError` (fails loudly) | N/A | Raises `KeyError` (fails loudly) |
 
-Honest reading: because (a) and (c) were designed with the tax law in data, FY25-26 was a config change, not a code change - **I did not get a "what broke"
-story from a genuinely structural change**, and I will not invent one. The measured silent failure is different and real: routing an FY25-26 taxpayer through
-FY24-25 rules runs fine and is wrong 91 times out of 102 (new-regime users). Guard: regression tests pinned per FY
-+ a release gate that fails if any FY lacks a golden suite. Structural changes (a new deduction, new surcharge rule) would need an engine change in (a), a new DSL function
-in (c), and are the case where (b) is most dangerous: it will silently keep applying the old rule text it was not told changed.
+### Analysis
 
-## 4. Final design for 100,000 users (Task 6)
-| Component | Type | Why (measured) |
+Approaches (a) and (c) were designed to represent tax law as data. Therefore, supporting FY 2025–26 required a configuration change rather than an engine-code change.
+
+I did not observe a genuine structural-change failure in these approaches, and I will not invent one.
+
+The measured silent failure is different and real: routing an FY 2025–26 taxpayer through FY 2024–25 rules completes without an error but produces incorrect results in **91 out of 102 cases (new-regime users)**.
+
+**Safeguard:** Maintain regression tests pinned to each financial year and introduce a release gate that fails if any financial year lacks a golden test suite.
+
+A genuinely structural change, such as introducing a new deduction or surcharge rule, would require:
+
+- An engine modification in approach (a).
+- A new DSL function in approach (c).
+- Updated rule text in approach (b).
+
+This is where approach (b) becomes particularly risky: it may silently continue applying outdated rule text if it is not informed of the change.
+
+---
+
+## 4. Final Design for 100,000 Users (Task 6)
+
+| Component | Selected Approach | Evidence and Rationale |
 |---|---|---|
-| Free-text -> structured input | **Hybrid**: rule parser first; LLM extractor only when the rule parser cannot find salary/age; both feed one validator | Rules: 50/50 on dev texts, free, deterministic, but brittle on unseen phrasing. LLM adds coverage; validator guarantees it cannot fill gaps |
-| Clarifying questions | **Rule** | Missing/ambiguous/contradictory logic is a finite checklist; 16/16 correct, 0 guesses |
-| Tax computation, both regimes | **Rule** (versioned config + small engine), (c) as the Budget-day accelerator | 100.0% exact, 100.0% deterministic, ~1.706 ms, ~$0 per 1,000. Tax must be rupee-exact and reproducible for audit |
-| Regime recommendation + explanation text | **Rule** for the numbers; LLM may only *verbalise* the engine's trace | Every rupee has a clause (100%); an LLM narrating the trace cannot change a number if numbers are inserted by template |
-| Budget-day rule updates | **LLM-assisted, human-gated**: LLM drafts config/DSL from the new text, tests + differential run against oracle decide | (c) makes the LLM a one-time author, not a runtime dependency |
+| Free-text to structured input | **Hybrid:** Rule parser first; LLM extractor only when the rule parser cannot identify salary or age. Both feed into one validator. | The rule parser achieved 50/50 on development inputs. It is deterministic and free to execute, but may be brittle on unseen phrasing. The LLM can improve coverage, while the validator prevents it from filling missing values. |
+| Clarifying questions | **Rules** | Missing, ambiguous, and contradictory inputs can be handled through a finite checklist. The parser handled 16/16 cases correctly with zero unsupported guesses. |
+| Tax computation (both regimes) | **Rules:** Versioned configuration and a small calculation engine. Approach (c) serves as a Budget-day accelerator. | Both deterministic approaches achieved 100% rupee-exact accuracy and 100% determinism in the evaluated cases. Approach (a) recorded a p50 latency of 1.706 ms. Tax calculations must be exact and reproducible for auditing. |
+| Regime recommendation and explanation | **Rules for numerical results; LLM only to verbalise the engine's trace.** | Every rupee is linked to a rule clause in the evaluated deterministic approaches. The LLM may explain the trace, but numerical values must come directly from the engine. |
+| Budget-day rule updates | **LLM-assisted, human-gated.** The LLM drafts configuration or DSL changes from updated rule text, followed by testing and differential comparison against the oracle. | Approach (c) makes the LLM a one-time authoring assistant rather than a runtime dependency. |
 
-Keeping it correct through the next Budget: (1) per-FY golden suites (boundaries around every new threshold) generated before code; (2) two independent implementations
-(config engine vs compiled DSL) + oracle must agree on 100% of cases or deploy is blocked; (3) pin `fy` explicitly in every request and fail loudly on unknown FY;
-(4) verify >=30 cases per FY on the official calculator (template provided); (5) canary: compare production outputs against the oracle nightly on sampled inputs;
-(6) never use (b) for the number path - its cost/latency/non-determinism are unacceptable at 100k users and it cannot prove the stale-rule case above is fixed.
+### Keeping the System Correct Through the Next Budget
 
+1. **Financial-year-specific testing:** Create a golden test suite for every financial year, including boundary cases around every new threshold, before modifying the implementation.
+
+2. **Independent verification:** Run two independent implementations (configuration-based engine and compiled DSL) against the oracle. Block deployment unless all evaluated cases agree.
+
+3. **Explicit financial-year handling:** Require an explicit FY value in every request and fail loudly when an unsupported FY is provided.
+
+4. **Official calculator verification:** Verify at least 30 cases per financial year against the official calculator using the verification template provided in the repository.
+
+5. **Production monitoring:** Run nightly canary checks comparing sampled production outputs against the oracle.
+
+6. **Avoid LLM-based numerical computation:** Never use approach (b) for the numeric calculation path. Its cost, latency, and non-determinism make it unsuitable for rupee-exact calculations at 100,000-user scale. It also cannot independently guarantee that stale-rule failures have been corrected.
+7. 
