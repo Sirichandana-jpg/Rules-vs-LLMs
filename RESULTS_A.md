@@ -86,4 +86,4 @@ This is where approach (b) becomes particularly risky: it may silently continue 
 5. **Production monitoring:** Run nightly canary checks comparing sampled production outputs against the oracle.
 
 6. **Avoid LLM-based numerical computation:** Never use approach (b) for the numeric calculation path. Its cost, latency, and non-determinism make it unsuitable for rupee-exact calculations at 100,000-user scale. It also cannot independently guarantee that stale-rule failures have been corrected.
-7. 
+   
