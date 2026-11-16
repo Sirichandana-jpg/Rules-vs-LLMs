@@ -48,20 +48,20 @@ The complete profiling results are available in `project_b/profile_b.json`.
 
 | Data Quality Problem | Rules: Detect / FA / Rec | Rules: k rows/s / $/M / Expl | Stats: Detect / FA / Rec | Stats: k rows/s / $/M / Expl | LLM (Gemini) | LLM Tokens/M Rows |
 |---|---|---|---|---|---|---:|
-| Renamed/dropped column | 100.0 / 0.0 / - | 83,808 / 0.0 / 2 | 100.0 / 0.0 / - | 99,999 / 0.0 / 1 | NOT RUN | 619,067 |
-| Column type change | 100.0 / 0.0 / - | 17,138 / 0.0 / 2 | 100.0 / 0.0 / - | 890 / 0.0 / 1 | NOT RUN | 673,533 |
-| Date format switch | 100.0 / 0.0 / 100.0 | 140 / 0.0001 / 2 | 100.0 / 0.0 / 100.0 | 55 / 0.0002 / 2 | NOT RUN | 642,267 |
-| Latitude/longitude swapped | 100.0 / 0.0 / 100.0 | 5,214 / 0.0 / 2 | 100.0 / 0.0 / 100.0 | 5,804 / 0.0 / 2 | NOT RUN | 2,927,667 |
-| Exact duplicates | 100.0 / 0.0 / 100.0 | 458 / 0.0 / 2 | 100.0 / 0.0 / 100.0 | 37 / 0.0003 / 2 | NOT RUN | 2,977,067 |
-| Near-duplicates | 100.0 / 0.0 / 100.0 | 32 / 0.0003 / 2 | 100.0 / 0.0 / 98.8 | 28 / 0.0004 / 2 | NOT RUN | 2,967,400 |
-| Null spike (one agency) | 35.0 / 0.0 / 35.0 | 1,033 / 0.0 / 2 | 100.0 / 0.0 / 100.0 | 100 / 0.0001 / 2 | NOT RUN | 2,916,200 |
-| Closed < created | 100.0 / 0.0 / 100.0 | 39 / 0.0003 / 2 | 100.0 / 0.0 / 100.0 | 27 / 0.0004 / 2 | NOT RUN | 2,890,000 |
-| ZIP vs. borough | 100.0 / 0.0 / 100.0 | 278 / 0.0 / 2 | 100.0 / 0.0 / 100.0 | 397 / 0.0 / 2 | NOT RUN | 2,968,400 |
+| Renamed/dropped column | 100.0 / 0.0 / - | 83,808 / 0.0 / 2 | 100.0 / 0.0 / - | 99,999 / 0.0 / 1 | not evaluated | 619,067 |
+| Column type change | 100.0 / 0.0 / - | 17,138 / 0.0 / 2 | 100.0 / 0.0 / - | 890 / 0.0 / 1 | not evaluated | 673,533 |
+| Date format switch | 100.0 / 0.0 / 100.0 | 140 / 0.0001 / 2 | 100.0 / 0.0 / 100.0 | 55 / 0.0002 / 2 | not evaluated | 642,267 |
+| Latitude/longitude swapped | 100.0 / 0.0 / 100.0 | 5,214 / 0.0 / 2 | 100.0 / 0.0 / 100.0 | 5,804 / 0.0 / 2 | not evaluated | 2,927,667 |
+| Exact duplicates | 100.0 / 0.0 / 100.0 | 458 / 0.0 / 2 | 100.0 / 0.0 / 100.0 | 37 / 0.0003 / 2 | not evaluated | 2,977,067 |
+| Near-duplicates | 100.0 / 0.0 / 100.0 | 32 / 0.0003 / 2 | 100.0 / 0.0 / 98.8 | 28 / 0.0004 / 2 | not evaluated | 2,967,400 |
+| Null spike (one agency) | 35.0 / 0.0 / 35.0 | 1,033 / 0.0 / 2 | 100.0 / 0.0 / 100.0 | 100 / 0.0001 / 2 | not evaluated | 2,916,200 |
+| Closed < created | 100.0 / 0.0 / 100.0 | 39 / 0.0003 / 2 | 100.0 / 0.0 / 100.0 | 27 / 0.0004 / 2 | not evaluated | 2,890,000 |
+| ZIP vs. borough | 100.0 / 0.0 / 100.0 | 278 / 0.0 / 2 | 100.0 / 0.0 / 100.0 | 397 / 0.0 / 2 | not evaluated | 2,968,400 |
 | Complaint vs. descriptor | 100.0 / 0.0 / 98.7 | 211 / 0.0001 / 2 | 100.0 / 0.0 / 98.6 | 182 / 0.0001 / 2 | NOT RUN | 2,938,600 |
-| Resolution vs. status | 100.0 / 0.0 / 78.5 | 81 / 0.0001 / 2 | 100.0 / 0.0 / 48.6 | 62 / 0.0002 / 2 | NOT RUN | 2,921,400 |
-| PII in free text | 100.0 / 0.0 / 75.1 | 12 / 0.0009 / 2 | 0.0 / 0.0 / 100.0 | 15 / 0.0007 / 1 | NOT RUN | 2,923,867 |
+| Resolution vs. status | 100.0 / 0.0 / 78.5 | 81 / 0.0001 / 2 | 100.0 / 0.0 / 48.6 | 62 / 0.0002 / 2 | not evaluated | 2,921,400 |
+| PII in free text | 100.0 / 0.0 / 75.1 | 12 / 0.0009 / 2 | 0.0 / 0.0 / 100.0 | 15 / 0.0007 / 1 | not evaluated | 2,923,867 |
 
-**Important:** Gemini-based LLM detection was not executed. Token counts represent projected usage based on sampled review, not measured API execution.
+
 
 ### LLM Token Cost Analysis
 
@@ -75,7 +75,7 @@ To calculate the estimated API cost:
 
 `Estimated Cost = (Total Input Tokens / 1,000,000) × GEMINI_PRICE_IN_PER_M`
 
-No Gemini API price is assumed in this evaluation.
+
 
 ### Key Observations
 
