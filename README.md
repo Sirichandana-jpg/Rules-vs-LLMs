@@ -23,7 +23,7 @@ The same calculator is built **three ways**:
 | Impl. | File | How it works |
 |---|---|---|
 | (a) Hand-coded rules | `calc_rules.py` + `rules/*.json` | Small engine; the law (slabs, caps, rebate) lives in versioned JSON. Exact `Fraction` arithmetic. |
-| (b) LLM at query time | `calc_llm.py` | Gemini reads the rule text per request and computes the answer. **NOT RUN here (needs key).** |
+| (b) LLM at query time | `calc_llm.py` | Gemini reads the rule text per request and computes the answer. |
 | (c) LLM-compiled rules | `calc_compiled.py`, `dsl.py`, `compile_rules.py`, `compiled/*.json` | An LLM converts rule text into a small DSL once; a human reviews it; then it runs with **no LLM**. |
 
 Also in Project A:
@@ -98,10 +98,10 @@ Raw numbers are in `project_a/results_a.json` and `project_b/results_b.json`.
 ### Project A
 | Metric | (a) Hand rules | (b) LLM query-time | (c) Compiled rules |
 |---|---|---|---|
-| Rupee-exact accuracy (277 cases, both regimes) | **100%** | NOT RUN | **100%** |
-| Deterministic over 10 repeats | **100%** | NOT RUN | **100%** |
+| Rupee-exact accuracy (277 cases, both regimes) | **100%** | not evaluated | **100%** |
+| Deterministic over 10 repeats | **100%** | not evaluated | **100%** |
 | Latency p50 | about 0.17 ms | NOT RUN | about 0.8 ms |
-| Every rupee traces to a clause | **100%** | NOT RUN | **100%** |
+| Every rupee traces to a clause | **100%** | not evaluated | **100%** |
 - Plain-language parser: 50/50 gold texts correct; 16/16 ambiguous/incomplete/contradictory texts produced the right clarifying question; 0 guessed values. (Developed against these same 50 texts, so expect lower accuracy on unseen phrasing.)
 - **Law change (FY 2025-26):** the two deterministic designs absorbed it as a config change. The measured *silent failure* is routing an FY25-26 taxpayer through FY24-25 rules: it runs without error and is **wrong in 91 of 102 cases**. Fix: pin the FY on every request, fail loudly on an unknown FY, and keep per-FY golden suites as a release gate.
 
