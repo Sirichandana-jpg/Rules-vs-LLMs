@@ -5,11 +5,11 @@
 
 | Metric | (a) Hand-Coded Rules | (b) LLM at Query Time | (c) LLM-Compiled Rules |
 |---|---:|---:|---:|
-| Rupee-exact accuracy (both regimes) | 100.0% (277 cases) | NOT RUN | 100.0% (277 cases) |
-| Deterministic over 10 repeats | 100.0% of 60 inputs | NOT RUN | 100.0% of 60 inputs |
-| Latency (p50 / p95) | 1.706 / 2.724 ms | NOT RUN | 5.518 / 8.512 ms |
-| Cost per 1,000 requests | $2.07e-05 (CPU, assumed $0.04/vCPU-hour) | NOT RUN; estimated 886 input tokens/request | $6.502e-05 (CPU) |
-| Every rupee traces to a clause | 100.0% | NOT RUN | 100.0% |
+| Rupee-exact accuracy (both regimes) | 100.0% (277 cases) | not evaluated | 100.0% (277 cases) |
+| Deterministic over 10 repeats | 100.0% of 60 inputs | not evaluated | 100.0% of 60 inputs |
+| Latency (p50 / p95) | 1.706 / 2.724 ms | not evaluated | 5.518 / 8.512 ms |
+| Cost per 1,000 requests | $2.07e-05 (CPU, assumed $0.04/vCPU-hour) | not evaluated; estimated 886 input tokens/request | $6.502e-05 (CPU) |
+| Every rupee traces to a clause | 100.0% | not evaluated | 100.0% |
 
 **Trace verification:** Every trace line references a `[clause]` present in the rule text, and the final trace line matches the reported tax amount.
 
