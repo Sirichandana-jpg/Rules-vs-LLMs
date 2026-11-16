@@ -3,7 +3,7 @@
 
 ## AI Tools Used
 
-- **Claude (claude.ai and code-execution sandbox):** Used extensively during development to assist with implementing the project architecture, writing and debugging Python modules, generating test cases, running tests, evaluating implementations, and preparing technical documentation.
+- **Claude (claude.ai and code-execution sandbox):** Used extensively during development to assist with implementing the project architecture, writing and debugging Python modules, evaluating implementations, and preparing technical documentation.
 
 - **ChatGPT:** Used for additional technical clarification, reviewing implementation decisions, understanding errors, refining documentation, and improving the presentation of the final submission.
 
