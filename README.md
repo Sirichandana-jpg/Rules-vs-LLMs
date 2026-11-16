@@ -105,7 +105,7 @@ Raw numbers are in `project_a/results_a.json` and `project_b/results_b.json`.
 - Plain-language parser: 50/50 gold texts correct; 16/16 ambiguous/incomplete/contradictory texts produced the right clarifying question; 0 guessed values. (Developed against these same 50 texts, so expect lower accuracy on unseen phrasing.)
 - **Law change (FY 2025-26):** the two deterministic designs absorbed it as a config change. The measured *silent failure* is routing an FY25-26 taxpayer through FY24-25 rules: it runs without error and is **wrong in 91 of 102 cases**. Fix: pin the FY on every request, fail loudly on an unknown FY, and keep per-FY golden suites as a release gate.
 
-### Project B (synthetic data; see warning above)
+### Project B
 - Rules and statistics tie on most problem types. The clear separations: **null spike** (rules only watch fixed columns; the per-agency statistical test sees any column) and **PII** (regex cannot catch personal names).
 - Hybrid pipeline end to end: about **42,600 rows/s per core**, about **$0.0003 CPU per million rows**, **0%** false alarms on clean batches.
 - Reviewing every row with an LLM once would be about **118M input tokens per million rows**; confirming only alerted rows is about **0.4M**.
