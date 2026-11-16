@@ -43,16 +43,69 @@ Also in Project A:
 
 ## 2. Project structure
 ```
-run_all.py                 one command that reproduces every number
-RESULTS_A.md               Project A: comparison table, FY25-26 change log, final design
-RESULTS_B.md               Project B: per-problem table, real issues, hybrid pipeline, scale design
-DECISION_MATRIX.md         one row per component/check: rule / statistical / LLM / hybrid + the measurement
-AI_USAGE.md                which AI tools were used, and one place the AI was wrong
-common/gemini.py           small Gemini REST client (no key -> clean "NOT RUN")
-project_a/                 calc_rules, calc_llm, calc_compiled, dsl, parser, evaluate, report_a,
-                           rules/ (hand-coded law), rule_text/ (text the LLM reads), compiled/ (DSL), tests/
-project_b/                 injector, detectors/, evaluate, profile, fetch_311, synth_311, report_b, tests/
-make_decision_matrix.py    builds DECISION_MATRIX.md from the measured results
+Rules-vs-LLMs/
+│
+├── README.md
+├── AI_USAGE.md
+├── RESULTS_A.md
+├── RESULTS_B.md
+├── requirements.txt
+├── .gitignore
+├── .env.example
+│
+├── common/
+│   ├── __init__.py
+│   ├── gemini.py
+│   ├── config.py
+│   └── utils.py
+│
+├── project_a/
+│   ├── __init__.py
+│   │
+│   ├── rules/
+│   │   ├── fy2024_25.json
+│   │   └── fy2025_26.json
+│   │
+│   ├── rule_text/
+│   │   ├── fy2024_25.md
+│   │   └── fy2025_26.md
+│   │
+│   ├── tests/
+│   │   ├── __init__.py
+│   │   ├── oracle.py
+│   │   └── test_golden.py
+│   │
+│   ├── calc_rules.py
+│   ├── calc_llm.py
+│   ├── calc_compiled.py
+│   ├── compile_rules.py
+│   ├── parser.py
+│   ├── gen_cases.py
+│   └── cases.json
+│
+├── project_b/
+│   ├── __init__.py
+│   │
+│   ├── detectors/
+│   │   ├── __init__.py
+│   │   ├── rules.py
+│   │   ├── statistics.py
+│   │   └── llm.py
+│   │
+│   ├── data/
+│   │   └── sample/
+│   │
+│   ├── profile.py
+│   ├── profile_b.json
+│   ├── corruption.py
+│   ├── evaluate.py
+│   ├── hybrid.py
+│   └── scale_analysis.py
+│
+└── docs/
+    ├── architecture.md
+    ├── methodology.md
+    └── evaluation.md
 ```
 
 ---
