@@ -33,7 +33,7 @@ Also in Project A:
 
 ### Project B: data-quality layer (`project_b/`)
 - **Profiler** (`profile.py`): finds real quality problems in the 2023 data, with counts and example keys.
-- **Corruption injector** (`injector.py`): injects 12 problem types at a controlled rate (renamed/dropped column, type change, date-format switch, lat/lon swap, exact and near duplicates, null spike in one agency, closed < created, ZIP vs borough, complaint vs descriptor, resolution vs status, PII in free text).
+- **Corruption injector** (`injector.py`): injects 12 problem types at a controlled rate (renamed/dropped column, type change, date-format switch, lat/lon swap, exact and near duplicates, null spike in one agency).
 - **Three detector families per problem** (`detectors/rules.py`, `stats.py`, `llm.py`): declarative rules, statistical/ML detectors, LLM review.
 - **Evaluation** (`evaluate.py`): detection rate, false-alarm rate on clean batches, cost per million rows, throughput, explainability.
 - **Hybrid pipeline**: the winner per problem type is picked automatically from the measurements; the LLM is used only on rows already flagged.
@@ -76,14 +76,14 @@ python run_all.py
 ```
 
 `run_all.py` runs, in order: test-suite generation, unit tests (golden cases + Project B tests), Project A evaluation and report,
-Project B profiling, evaluation and report, and the decision matrix. It takes about a minute and needs no internet.
+Project B profiling, evaluation and report, and the decision matrix.
 
 
 
 ---
 
-## 4. How to see the results
-After `py run_all.py`, open these files (any Markdown viewer; in VS Code press `Ctrl+Shift+V`):
+## 4. results
+
 
 1. **`RESULTS_A.md`**: the three-way comparison table (accuracy, determinism over 10 repeats, latency, cost per 1,000 requests, clause traceability), parser results, the FY 2025-26 change log, and the final design for 100,000 users.
 2. **`RESULTS_B.md`**: real quality problems found, the per-problem detection / false-alarm / cost table for rules vs statistics vs LLM, the hybrid pipeline, and the 50M rows/day scale design.
