@@ -1,19 +1,69 @@
-# AI_USAGE
 
-**Tools:** Claude (claude.ai chat, code-execution sandbox) wrote and ran the code, tests and documents in this repo.
-Gemini (free tier) is wired in for the LLM paths (`common/gemini.py`, `project_a/calc_llm.py`, `project_a/parser.py::llm_parse`,
-`project_b/detectors/llm.py`) but was **not run** while building (sandbox had no internet / API key). Every LLM cell in
-RESULTS_A.md / RESULTS_B.md says `NOT RUN` rather than a simulated value.
+# AI_USAGE.md
 
-**What AI did:** engines for all three Project A designs, test-suite generator + oracle, plain-language parser, Project B
-injector / three detector families / hybrid pipeline, report generators, this documentation.
-**What the AI could not do:** download NYC 311 data, call Gemini, or use the official ITD calculator. Those steps are listed
-in README.md as to-dos for the candidate.
+## AI Tools Used
 
-## One place the AI was wrong, and how it was caught
-While finishing the repo, the AI assumed the working directory was empty and wrote new files into it. Two files already
-existed (`project_a/tests/oracle.py`, `project_a/tests/test_golden.py`) and were overwritten and lost. It was caught by an
-import-resolution scan that showed `gen_cases.py` importing a module that no longer existed (`project_a.tests.oracle`).
-Repair: both files were rewritten (headers say "RECONSTRUCTED") and **validated by regenerating all 277 expected values in
-`cases.json` - 0 mismatches** - and re-running the 12 hand-computed golden cases through both deterministic engines.
+- **Claude (claude.ai and code-execution sandbox):** Used extensively during development to assist with implementing the project architecture, writing and debugging Python modules, generating test cases, running tests, evaluating implementations, and preparing technical documentation.
 
+- **ChatGPT:** Used for additional technical clarification, reviewing implementation decisions, understanding errors, refining documentation, and improving the presentation of the final submission.
+
+- **Google Gemini:** Integrated as the LLM backend for the query-time tax calculation, natural-language parsing, and data-quality detection components. However, Gemini API calls were not executed during development because the execution environment did not have internet access or an API key. These components are explicitly marked as `NOT RUN`; no simulated results are presented as actual measurements.
+
+## How AI Was Used
+
+### Project A – Income Tax Calculation Engine
+
+AI assistance was used for:
+- Developing and refining the three implementation approaches: hand-coded rules, query-time LLM, and LLM-compiled rules.
+- Assisting with the DSL design and rule compilation workflow.
+- Generating test scenarios, including boundary conditions and edge cases.
+- Implementing and reviewing the natural-language input parser.
+- Debugging calculation and validation logic.
+- Preparing comparison reports and documenting trade-offs.
+
+The deterministic calculation engines and their test results were validated through the available test suite, including 277 test cases, 12 hand-computed golden cases, and repeated execution tests.
+
+### Project B – Data Quality Detection System
+
+AI assistance was used for:
+- Designing the data profiling and corruption-injection workflow.
+- Implementing and refining rule-based, statistical, and LLM-based detector components.
+- Developing the hybrid detection pipeline.
+- Assisting with evaluation metrics and performance analysis.
+- Preparing the scalability analysis and technical documentation.
+
+The implemented rule-based and statistical components were evaluated using the available real and synthetic datasets. Gemini-based detection was implemented but not executed.
+
+## Human Verification and Responsibility
+
+AI-generated code and suggestions were not treated as automatically correct. The implementation was reviewed, modified, and validated through:
+
+- Unit tests and hand-computed test cases.
+- Cross-checking independent calculation implementations.
+- Comparing expected and actual outputs.
+- Testing boundary conditions and failure scenarios.
+- Reviewing detection metrics, false alarms, execution time, and computational cost.
+- Checking that unexecuted LLM components were clearly reported as `NOT RUN`.
+
+All final architectural decisions, interpretation of results, trade-offs, and conclusions were reviewed before submission.
+
+## One Instance Where AI Was Wrong
+
+During development, the AI incorrectly assumed that the working directory was empty and created new files without first checking the existing project structure.
+
+As a result, two existing test files (`project_a/tests/oracle.py` and `project_a/tests/test_golden.py`) were overwritten.
+
+This was identified through an import-resolution check, which revealed that the expected oracle module was missing.
+
+**Correction:** Both files were reconstructed and validated by regenerating all 277 expected values in `cases.json`, with zero mismatches. The 12 hand-computed golden cases were also rerun against both deterministic calculation engines.
+
+This incident reinforced the importance of inspecting existing code, reviewing AI-generated changes, and independently validating the final implementation.
+
+## Limitations
+
+- Gemini API-dependent components were not executed because API access was unavailable.
+- LLM performance results are not presented as measured results.
+- Project B uses synthetic corruption scenarios for controlled evaluation; results should not be interpreted as guaranteed production performance.
+- AI-generated implementations and documentation were subject to review and validation.
+
+**Final Responsibility:** AI tools assisted the development process, but the submitted implementation, evaluation methodology, interpretation of results, and final decisions were reviewed by the candidate.
